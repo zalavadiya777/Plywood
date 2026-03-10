@@ -1,0 +1,394 @@
+:root {
+    --accent: #00f2ff;
+}
+
+.slider-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    padding: 40px 0;
+    overflow: hidden;
+    background: #050505;
+}
+
+.slider-header {
+    padding-left: 80px;
+    margin-bottom: 40px;
+    z-index: 10;
+}
+
+.slider-header h1 {
+    font-size: 3rem;
+    font-weight: 300;
+    letter-spacing: -1px;
+}
+
+.highlight {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.slider-header p {
+    opacity: 0.5;
+    margin-top: 10px;
+}
+
+.slider-container {
+    width: 100%;
+    cursor: grab;
+    user-select: none;
+    padding: 20px 0;
+}
+
+.slider-container:active {
+    cursor: grabbing;
+}
+
+.slider-track {
+    display: flex;
+    padding-left: 80px;
+    padding-right: 80px;
+    gap: 30px;
+    width: max-content;
+    will-change: transform;
+}
+
+.parallax-card {
+    width: 450px;
+    height: 550px;
+    flex-shrink: 0;
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    background: #111;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+    transform-style: preserve-3d;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.p-img {
+    position: absolute;
+    top: 0;
+    left: -15%;
+    width: 130%;
+    height: 100%;
+    object-fit: cover;
+    will-change: transform;
+}
+
+.card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+    z-index: 2;
+}
+
+.card-content span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 10px;
+}
+
+.card-content h3 {
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+.progress-bar {
+    position: absolute;
+    bottom: 20px;
+    left: 80px;
+    right: 80px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+    z-index: 100;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    box-shadow: 0 0 15px var(--accent), 0 0 30px rgba(0, 242, 255, 0.3);
+    border-radius: 2px;
+}
+
+/* Expansion Overlay */
+.expansion-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(20px);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.overlay-scene {
+    width: 90vw;
+    max-width: 400px;
+    height: 70vh;
+    max-height: 550px;
+    perspective: 1200px;
+    cursor: grab;
+    touch-action: none;
+}
+
+.overlay-scene:active {
+    cursor: grabbing;
+}
+
+.overlay-card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+}
+
+.card-face img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    background: #111;
+}
+
+.overlay-header {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 2100;
+    animation: slideDown 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes slideDown {
+    from { transform: translate(-50%, -20px); opacity: 0; }
+    to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+.overlay-header span {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    text-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.8),
+        0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.overlay-header h2 {
+    font-size: 3rem;
+    font-weight: 300;
+    letter-spacing: -1px;
+    margin: 0;
+    text-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.9),
+        0 10px 40px rgba(0, 0, 0, 0.6),
+        0 0 50px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 768px) {
+    .overlay-header h2 { 
+        font-size: 2rem; 
+        text-shadow: 0 5px 15px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.8);
+    }
+    .overlay-header span {
+        text-shadow: 0 2px 5px rgba(0,0,0,1);
+    }
+    .overlay-header { top: 80px; }
+}
+
+.close-btn {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2100;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn svg {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.close-btn:hover {
+    background: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+    transform: scale(1.1);
+    box-shadow: 0 0 30px var(--accent);
+}
+
+.close-btn:hover svg {
+    transform: rotate(180deg) scale(0.8);
+}
+
+.close-btn:active {
+    transform: scale(0.9);
+}
+
+/* Zoom Controls */
+.zoom-controls {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px 25px;
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 2200;
+}
+
+.zoom-controls svg {
+    width: 20px;
+    height: 20px;
+    opacity: 0.6;
+}
+
+.zoom-controls input[type="range"] {
+    width: 150px;
+    height: 6px;
+    background: linear-gradient(to right, var(--accent) 0%, var(--accent) var(--progress), rgba(255, 255, 255, 0.1) var(--progress), rgba(255, 255, 255, 0.1) 100%);
+    border-radius: 10px;
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+}
+
+.zoom-controls input[type="range"]::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 10px;
+}
+
+.zoom-controls input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border: 3px solid var(--accent);
+    border-radius: 50%;
+    margin-top: -6px;
+    box-shadow: 0 0 15px var(--accent);
+    transition: transform 0.2s ease;
+}
+
+.zoom-controls input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+/* Responsiveness */
+@media (max-width: 1200px) {
+    .parallax-card { width: 400px; height: 500px; }
+    .slider-header { padding-left: 60px; }
+    .slider-track { padding-left: 60px; padding-right: 60px; }
+    .progress-bar { left: 60px; right: 60px; }
+}
+
+@media (max-width: 1024px) {
+    .parallax-card { width: 350px; height: 450px; }
+    .slider-header h1 { font-size: 2.5rem; }
+}
+
+@media (max-width: 768px) {
+    .parallax-card { width: 280px; height: 380px; }
+    .slider-header { padding-left: 30px; margin-bottom: 20px; }
+    .slider-header h1 { font-size: 2rem; }
+    .slider-track { padding-left: 30px; padding-right: 30px; gap: 20px; }
+    .progress-bar { left: 30px; right: 30px; bottom: 15px; }
+    .card-content { padding: 25px; }
+    .card-content h3 { font-size: 1.4rem; }
+    
+    .zoom-controls {
+        bottom: 100px;
+        width: 85%;
+        padding: 10px 20px;
+        gap: 12px;
+    }
+    .zoom-controls input[type="range"] {
+        flex: 1;
+        width: auto;
+    }
+
+    .close-btn {
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .parallax-card { width: 240px; height: 320px; }
+    .slider-header { padding-left: 20px; }
+    .slider-header h1 { font-size: 1.5rem; }
+    .slider-track { padding-left: 20px; padding-right: 20px; gap: 15px; }
+    .progress-bar { left: 20px; right: 20px; bottom: 10px; }
+    .card-content h3 { font-size: 1.2rem; }
+    .card-content span { font-size: 0.8rem; }
+}
+
+@media (max-height: 600px) {
+    .parallax-card { height: 75vh; }
+    .slider-wrapper { padding: 20px 0; }
+}

@@ -1,0 +1,107 @@
+.deck-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+    height: 100%;
+    padding: 40px 0;
+}
+
+.deck-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.deck-stack {
+    position: relative;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.deck-card {
+    position: absolute;
+    width: 220px;
+    height: 300px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    will-change: transform, left, filter;
+    transition: 
+        transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+        filter 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.deck-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.deck-card:hover {
+    transform: scale(1.1) translateY(-15px) !important;
+    z-index: 100 !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 242, 255, 0.3);
+    filter: blur(0) !important;
+}
+
+.deck-card:hover .card-title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.deck-container.has-hover .deck-card:not(:hover) {
+    filter: blur(4px) brightness(0.7);
+}
+
+.controls {
+    display: flex;
+    gap: 16px;
+    z-index: 10;
+}
+
+.controls button {
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.controls button:hover {
+    background: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+}

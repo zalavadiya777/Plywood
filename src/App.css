@@ -1,0 +1,32 @@
+:root {
+  --bg-color: #050505;
+  --accent: #00f2ff;
+}
+
+.app-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-color);
+  color: #fff;
+  overflow: hidden;
+}
+
+.gallery-content {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.placeholder {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  opacity: 0.3;
+  letter-spacing: 2px;
+}
