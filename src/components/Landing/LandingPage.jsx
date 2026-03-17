@@ -53,10 +53,10 @@ const LandingPage = ({ onEnter }) => {
                 '--move-y': `${(mousePos.y - 50) * 0.2}px`
             }}
         >
-            <div className="bg-interactive-dots">
-                <div className="dots-base"></div>
-                <div className="dots-highlight"></div>
-                <div className="dots-lines"></div>
+            <div className="bg-interactive-plus">
+                <div className="plus-base"></div>
+                <div className="plus-highlight"></div>
+                <div className="plus-lines"></div>
             </div>
             <div className="landing-content">
                 <div className="title-section">
