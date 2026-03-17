@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { Draggable } from 'gsap/draggable';
+import { Draggable } from 'gsap/Draggable';
 import './Slider.css';
 
 gsap.registerPlugin(Draggable);
