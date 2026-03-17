@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { Draggable } from 'gsap/Draggable';
+import { Draggable } from 'gsap/draggable';
 import './Slider.css';
 
 gsap.registerPlugin(Draggable);
@@ -28,7 +28,7 @@ const cardsData = [
     { id: 20, title: 'Cosmic Dust', img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1000&q=80' },
 ];
 
-const DragParallaxSlider = () => {
+const DragParallaxSlider = ({ category, onBack }) => {
     const containerRef = useRef(null);
     const trackRef = useRef(null);
     const progressFillRef = useRef(null);
@@ -95,7 +95,7 @@ const DragParallaxSlider = () => {
             onDragStart: function () {
                 isDragging.current = true;
                 velocity.current = 0;
-                
+
                 // Refresh bounds on start to handle any layout shifts
                 trackWidth = track.scrollWidth;
                 maxDrag = window.innerWidth - trackWidth;
@@ -119,7 +119,7 @@ const DragParallaxSlider = () => {
                 smoothedX.current += velocity.current;
                 velocity.current *= 0.95;
                 targetX.current = smoothedX.current;
-            } 
+            }
             else {
                 const diff = targetX.current - smoothedX.current;
                 if (Math.abs(diff) > 0.1) {
@@ -217,7 +217,7 @@ const DragParallaxSlider = () => {
             x: prev.x - deltaY * 0.5
         }));
         lastPos.current = { x: clientX, y: clientY };
-        
+
         if (e.type.includes('touch')) e.preventDefault();
     };
 
@@ -229,7 +229,16 @@ const DragParallaxSlider = () => {
     return (
         <div className="slider-wrapper" ref={containerRef}>
             <header className="slider-header">
-                <h1>Dynamic <span className="highlight">Parallax</span></h1>
+                <div className="header-left">
+                    <button className="nav-back-btn" onClick={onBack}>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <line x1="19" y1="12" x2="5" y2="12"></line>
+                            <polyline points="12 19 5 12 12 5"></polyline>
+                        </svg>
+                        <span>BACK</span>
+                    </button>
+                    <h1>Category: <span className="highlight">{category || 'Parallax'}</span></h1>
+                </div>
                 <p>Drag horizontally to explore</p>
             </header>
 
@@ -306,12 +315,12 @@ const DragParallaxSlider = () => {
 
                     <div className="zoom-controls">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /><line x1="8" y1="11" x2="14" y2="11" /></svg>
-                        <input 
-                            type="range" 
-                            min="0.3" 
-                            max="1.5" 
-                            step="0.01" 
-                            value={zoom} 
+                        <input
+                            type="range"
+                            min="0.3"
+                            max="1.5"
+                            step="0.01"
+                            value={zoom}
                             style={{ '--progress': `${((zoom - 0.3) / 1.2) * 100}%` }}
                             onChange={(e) => setZoom(parseFloat(e.target.value))}
                         />
