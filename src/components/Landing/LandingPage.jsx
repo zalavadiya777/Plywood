@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './LandingPage.css';
 
-const LandingPage = ({ onEnter }) => {
+const LandingPage = ({ theme, toggleTheme, onNavigate }) => {
     const [rotation, setRotation] = useState({ x: 0, y: 0 });
     const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
     const [activeTouch, setActiveTouch] = useState(null);
@@ -69,7 +69,7 @@ const LandingPage = ({ onEnter }) => {
                         <div 
                             key={index}
                             className={`box-container glass-card ${activeTouch === name ? 'is-touch-hover' : ''}`}
-                            onClick={() => onEnter(name)}
+                            onClick={() => onNavigate(`/collection/${name}`)}
                             onTouchStart={() => handleTouchStart(name)}
                             onTouchEnd={(e) => handleTouchEnd(name, e)}
                             onTouchCancel={() => setActiveTouch(null)}
@@ -101,12 +101,27 @@ const LandingPage = ({ onEnter }) => {
                     ))}
                 </div>
 
-                <button className="enter-btn" onClick={() => onEnter('general')}>
+                <button className="enter-btn" onClick={() => onNavigate('/collection/general')}>
                     <span>ENTER EXPERIENCE</span>
                     <div className="btn-glow"></div>
                 </button>
             </div>
             
+            <div className={`theme-toggle-switch ${theme}`} onClick={toggleTheme}>
+                <div className="toggle-track">
+                    <div className="toggle-knob">
+                        {theme === 'dark' ? (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="moon-icon">
+                                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                            </svg>
+                        ) : (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="sun-icon">
+                                <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+                            </svg>
+                        )}
+                    </div>
+                </div>
+            </div>
             <div className="bg-grid"></div>
         </div>
     );

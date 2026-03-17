@@ -1,0 +1,35 @@
+.transition-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.transition-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateY(100%);
+    will-change: transform;
+}
+
+.card-dark {
+    background: var(--transition-c1);
+    z-index: 10;
+}
+
+.card-accent {
+    background: var(--transition-c2);
+    z-index: 11;
+}
+
+.card-light {
+    background: var(--transition-c3);
+    z-index: 12;
+}

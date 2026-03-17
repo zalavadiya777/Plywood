@@ -1,41 +1,45 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { Draggable } from 'gsap/Draggable';
+import birch from '../../assets/textures/birch.png';
+import walnut from '../../assets/textures/walnut.png';
+import oak from '../../assets/textures/oak.png';
+import marine from '../../assets/textures/marine.png';
+import maple from '../../assets/textures/maple.png';
+import cherry from '../../assets/textures/cherry.png';
+import zebra from '../../assets/textures/zebra.png';
+import pine from '../../assets/textures/pine.png';
+import rosewood from '../../assets/textures/rosewood.png';
+import teak from '../../assets/textures/teak.png';
+import bamboo from '../../assets/textures/bamboo.png';
+import mahogany from '../../assets/textures/mahogany.png';
 import './Slider.css';
 
 gsap.registerPlugin(Draggable);
 
 const cardsData = [
-    { id: 1, title: 'Neural Flow', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1000&q=80' },
-    { id: 2, title: 'Void Walker', img: 'https://images.unsplash.com/photo-1633167606207-d840b5070fc2?w=1000&q=80' },
-    { id: 3, title: 'Neon Horizon', img: 'https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?w=1000&q=80' },
-    { id: 4, title: 'Cyber Dreams', img: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=1000&q=80' },
-    { id: 5, title: 'Glass Prism', img: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=1000&q=80' },
-    { id: 6, title: 'Fluid Motion', img: 'https://images.unsplash.com/photo-1477346611705-65d1883cee1e?w=1000&q=80' },
-    { id: 7, title: 'Velvet Abyss', img: 'https://images.unsplash.com/photo-1549490349-8643362247b5?w=1000&q=80' },
-    { id: 8, title: 'Spectral Shift', img: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=1000&q=80' },
-    { id: 9, title: 'Prism Core', img: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=1000&q=80' },
-    { id: 10, title: 'Digital Peak', img: 'https://images.unsplash.com/photo-1557683311-eac922347aa1?w=1000&q=80' },
-    { id: 11, title: 'Lunar Ghost', img: 'https://images.unsplash.com/photo-1618556450991-2f1af64e8191?w=1000&q=80' },
-    { id: 12, title: 'Gradient Sky', img: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1000&q=80' },
-    { id: 13, title: 'Deep Ocean', img: 'https://images.unsplash.com/photo-1563089145-599997674d42?w=1000&q=80' },
-    { id: 14, title: 'Abstract Path', img: 'https://images.unsplash.com/photo-1493612216891-65cbf3b5c420?w=1000&q=80' },
-    { id: 15, title: 'Sunset Breeze', img: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=1000&q=80' },
-    { id: 16, title: 'Color Burst', img: 'https://images.unsplash.com/photo-1574169208507-84376144848b?w=1000&q=80' },
-    { id: 17, title: 'Ethereal Mist', img: 'https://images.unsplash.com/photo-1567095761054-7a02e69e5c43?w=1000&q=80' },
-    { id: 18, title: 'Parallel Worlds', img: 'https://images.unsplash.com/photo-1502691876148-a84978e59af8?w=1000&q=80' },
-    { id: 19, title: 'Light Study', img: 'https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?w=1000&q=80' },
-    { id: 20, title: 'Cosmic Dust', img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1000&q=80' },
+    { id: 1, title: 'Nordic Birch', img: birch },
+    { id: 2, title: 'American Walnut', img: walnut },
+    { id: 3, title: 'Natural Oak', img: oak },
+    { id: 4, title: 'Marine Plywood', img: marine },
+    { id: 5, title: 'Arctic Maple', img: maple },
+    { id: 6, title: 'Cherry Wood', img: cherry },
+    { id: 7, title: 'Zebrawood Ply', img: zebra },
+    { id: 8, title: 'Knotty Pine', img: pine },
+    { id: 9, title: 'Premium Rosewood', img: rosewood },
+    { id: 10, title: 'Teak Wood', img: teak },
+    { id: 11, title: 'Pressed Bamboo', img: bamboo },
+    { id: 12, title: 'Polished Mahogany', img: mahogany },
 ];
 
-const DragParallaxSlider = ({ category, onBack }) => {
+const DragParallaxSlider = ({ category, onBack, theme, toggleTheme }) => {
     const containerRef = useRef(null);
     const trackRef = useRef(null);
     const progressFillRef = useRef(null);
     const [expandedCard, setExpandedCard] = useState(null);
     const [isDraggingOverlay, setIsDraggingOverlay] = useState(false);
     const [overlayRotation, setOverlayRotation] = useState({ x: 0, y: 0 });
-    const [zoom, setZoom] = useState(0.9); // 0.9 is the 50% mark of 0.3-1.5 range
+    const [zoom, setZoom] = useState(0.9);
     const lastPos = useRef({ x: 0, y: 0 });
 
     const targetX = useRef(0);
@@ -72,18 +76,10 @@ const DragParallaxSlider = ({ category, onBack }) => {
                 const viewportCenter = window.innerWidth / 2;
                 const cardCenter = cardRect.left + cardRect.width / 2;
                 const distanceFromCenter = (cardCenter - viewportCenter) / (window.innerWidth / 2);
-
                 const clampedDist = Math.max(-1.5, Math.min(1.5, distanceFromCenter));
 
-                gsap.set(img, {
-                    xPercent: clampedDist * 15,
-                    overwrite: "auto"
-                });
-
-                gsap.set(card, {
-                    rotationY: clampedDist * 5,
-                    overwrite: "auto"
-                });
+                gsap.set(img, { xPercent: clampedDist * 15, overwrite: "auto" });
+                gsap.set(card, { rotationY: clampedDist * 5, overwrite: "auto" });
             });
         };
 
@@ -95,8 +91,6 @@ const DragParallaxSlider = ({ category, onBack }) => {
             onDragStart: function () {
                 isDragging.current = true;
                 velocity.current = 0;
-
-                // Refresh bounds on start to handle any layout shifts
                 trackWidth = track.scrollWidth;
                 maxDrag = window.innerWidth - trackWidth;
                 this.applyBounds({ minX: Math.min(0, maxDrag), maxX: 0 });
@@ -119,8 +113,7 @@ const DragParallaxSlider = ({ category, onBack }) => {
                 smoothedX.current += velocity.current;
                 velocity.current *= 0.95;
                 targetX.current = smoothedX.current;
-            }
-            else {
+            } else {
                 const diff = targetX.current - smoothedX.current;
                 if (Math.abs(diff) > 0.1) {
                     smoothedX.current += diff * 0.1;
@@ -129,14 +122,8 @@ const DragParallaxSlider = ({ category, onBack }) => {
                 }
             }
 
-            if (smoothedX.current > 0) {
-                smoothedX.current = 0;
-                velocity.current = 0;
-            }
-            if (smoothedX.current < maxDrag) {
-                smoothedX.current = maxDrag;
-                velocity.current = 0;
-            }
+            if (smoothedX.current > 0) { smoothedX.current = 0; velocity.current = 0; }
+            if (smoothedX.current < maxDrag) { smoothedX.current = maxDrag; velocity.current = 0; }
 
             gsap.set(track, { x: smoothedX.current });
             updateParallax(smoothedX.current);
@@ -148,10 +135,8 @@ const DragParallaxSlider = ({ category, onBack }) => {
         const handleWheel = (e) => {
             if (expandedRef.current || isDragging.current) return;
             velocity.current = 0;
-
             const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
             targetX.current -= delta * 1.5;
-
             if (targetX.current > 0) targetX.current = 0;
             if (targetX.current < maxDrag) targetX.current = maxDrag;
         };
@@ -160,14 +145,7 @@ const DragParallaxSlider = ({ category, onBack }) => {
 
         gsap.fromTo(cards,
             { y: 100, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 1.2,
-                stagger: 0.05,
-                ease: "power4.out",
-                delay: 0.1
-            }
+            { y: 0, opacity: 1, duration: 1.2, stagger: 0.05, ease: "power4.out", delay: 0.1 }
         );
 
         const handleResize = () => {
@@ -188,7 +166,6 @@ const DragParallaxSlider = ({ category, onBack }) => {
         };
     }, []);
 
-    // Separate effect for keyboard accessibility to avoid restarting animations
     React.useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.key === 'Escape') setExpandedCard(null);
@@ -208,7 +185,6 @@ const DragParallaxSlider = ({ category, onBack }) => {
         if (!isDraggingOverlay) return;
         const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
         const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
-
         const deltaX = clientX - lastPos.current.x;
         const deltaY = clientY - lastPos.current.y;
 
@@ -217,7 +193,6 @@ const DragParallaxSlider = ({ category, onBack }) => {
             x: prev.x - deltaY * 0.5
         }));
         lastPos.current = { x: clientX, y: clientY };
-
         if (e.type.includes('touch')) e.preventDefault();
     };
 
@@ -232,14 +207,28 @@ const DragParallaxSlider = ({ category, onBack }) => {
                 <div className="header-left">
                     <button className="nav-back-btn" onClick={onBack}>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <line x1="19" y1="12" x2="5" y2="12"></line>
-                            <polyline points="12 19 5 12 12 5"></polyline>
+                            <path d="M19 12H5M12 19l-7-7 7-7" />
                         </svg>
-                        <span>BACK</span>
+                        <span>BACK TO HOME</span>
                     </button>
-                    <h1>Category: <span className="highlight">{category || 'Parallax'}</span></h1>
+                    <h1>{category.toUpperCase()} <span className="highlight">COLLECTION</span></h1>
+                    <p>DRAG HORIZONTALLY TO EXPLORE</p>
                 </div>
-                <p>Drag horizontally to explore</p>
+                <div className={`theme-toggle-switch slider-theme-toggle ${theme}`} onClick={toggleTheme}>
+                    <div className="toggle-track">
+                        <div className="toggle-knob">
+                            {theme === 'dark' ? (
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="moon-icon">
+                                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                                </svg>
+                            ) : (
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="sun-icon">
+                                    <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+                                </svg>
+                            )}
+                        </div>
+                    </div>
+                </div>
             </header>
 
             <div className="slider-container">
@@ -282,8 +271,7 @@ const DragParallaxSlider = ({ category, onBack }) => {
                 >
                     <button className="close-btn" onClick={() => setExpandedCard(null)}>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                            <path d="M18 6L6 18M6 6l12 12" />
                         </svg>
                     </button>
 
